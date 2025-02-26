@@ -32,7 +32,7 @@ Ensure that **Apache and MySQL** are running in your local server environment.
 2. Create a new database named flowershop.
 3. Import the provided SQL file (flowershop.sql) to set up the required tables.
 
-### **5. Run the website:
+### 5. Run the website:
 
 1. Open a browser and navigate to 
    (http://localhost/your_project_folder/).
