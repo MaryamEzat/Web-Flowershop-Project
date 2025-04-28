@@ -1,0 +1,122 @@
+/* Reset some default styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    background-color: #f9f9f9;
+}
+
+/* Header styles */
+header {
+    background-color: #f5a7b8; /* Soft pink */
+    padding: 15px 0;
+    text-align: center;
+}
+
+header nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
+}
+
+header nav ul li {
+    margin: 0 20px;
+}
+
+header nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+header nav ul li a:hover {
+    color: #f8b1c4;
+    text-decoration: underline;
+}
+
+/* Hero Section with Pink Gradient */
+.hero {
+    background: linear-gradient(to bottom, #f0748b, #f8b1c4); /* Pink gradient background */
+    color: white;
+    padding: 80px 20px;
+    text-align: center;
+}
+
+.hero-content h1 {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.hero-content p {
+    font-size: 1.4rem;
+    font-style: italic;
+}
+
+/* Categories Section */
+.categories {
+    padding: 50px 20px;
+    text-align: center;
+}
+
+.categories h2 {
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    color: #f0748b;
+}
+
+.category-links {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+}
+
+.category-link {
+    text-decoration: none;
+    font-size: 1.5rem;
+    color: #f0748b;
+    background-color: #fff;
+    padding: 15px 30px;
+    border-radius: 5px;
+    border: 2px solid #f0748b;
+    transition: background-color 0.3s ease;
+}
+
+.category-link:hover {
+    background-color: #f0748b;
+    color: white;
+}
+
+/* Footer styles */
+footer {
+    background-color: #f5a7b8; /* Soft pink */
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+}
+
+footer p {
+    font-size: 0.9rem;
+    margin-top: 10px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    header nav ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .category-links {
+        flex-direction: column;
+    }
+}

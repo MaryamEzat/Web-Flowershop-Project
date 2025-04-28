@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Flower Shop</title>
+    <link rel="stylesheet" href="assets/styles/home.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        #password-feedback {
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        #password-feedback.green {
+            color: green;
+        }
+        #password-feedback.red {
+            color: red;
+        }
+ header, footer {
+            text-align: center;
+            padding: 10px 0;
+            background-color: #f8b1c4;
+            color: white;
+}
+body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Ensure body takes full viewport height */
+            background-color: #f9f9f9;
+        }
+
+ main {
+            flex: 1; /* Pushes the footer to the bottom */
+        }
+ /* Footer styling */
+        footer {
+            background-color: #f8b1c4; /* Matches the header color */
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+        }
+
+    </style>
+    <script>
+        // Validate if passwords match
+        function validatePasswords() {
+            const password = document.getElementById("password").value;
+            const confirmPassword = document.getElementById("confirm-password").value;
+
+            if (password !== confirmPassword) {
+                alert("Passwords do not match. Please try again.");
+                return false;
+            }
+            return true;
+        }
+
+        // Toggle password visibility
+        function togglePasswordVisibility() {
+            const passwordField = document.getElementById("password");
+            const confirmPasswordField = document.getElementById("confirm-password");
+            const checkbox = document.getElementById("show-password");
+
+            const type = checkbox.checked ? "text" : "password";
+            passwordField.type = type;
+            confirmPasswordField.type = type;
+        }
+
+        // Check if passwords match and display feedback
+        function checkPasswordMatch() {
+            const password = document.getElementById("password").value;
+            const confirmPassword = document.getElementById("confirm-password").value;
+            const feedback = document.getElementById("password-feedback");
+
+            if (password && confirmPassword) {
+                if (password === confirmPassword) {
+                    feedback.textContent = "Passwords match!";
+                    feedback.className = "green";
+                } else {
+                    feedback.textContent = "Passwords do not match!";
+                    feedback.className = "red";
+                }
+            } else {
+                feedback.textContent = "";
+            }
+        }
+
+        // Handle form submission with AJAX
+        async function submitSignupForm(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            const form = event.target;
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData.entries());
+
+            try {
+                const response = await fetch("http://127.0.0.1:5000/signup", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(data)
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    alert(result.message || "Sign-up successful!");
+                    form.reset(); // Clear the form
+                } else {
+                    alert(result.error || "Sign-up failed. Please try again.");
+                }
+            } catch (error) {
+                alert("An error occurred. Please try again later.");
+                console.error(error);
+            }
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="about-us.php"><i class="fas fa-info-circle"></i> About Us</a></li>
+                <li><a href="contact-us.php"><i class="fas fa-envelope"></i> Contact Us</a></li>
+                <li><a href="sign-in.html"><i class="fas fa-sign-in-alt"></i> Sign In</a></li>
+                <li><a href="sign-up.html"><i class="fas fa-user-plus"></i> Sign Up</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="page-content">
+            <h2>Sign Up</h2>
+            <form id="signup-form" action="signup.php" method="POST" onsubmit="return validatePasswords()">
+    <div class="form-group">
+        <label for="full_name"><i class="fas fa-user"></i> Full Name</label>
+        <input type="text" id="full_name" name="full_name" required placeholder="Enter your full name">
+    </div>
+
+    <div class="form-group">
+        <label for="email"><i class="fas fa-envelope"></i> Email</label>
+        <input type="email" id="email" name="email" required placeholder="Enter your email">
+    </div>
+
+    <div class="form-group">
+        <label for="password"><i class="fas fa-lock"></i> Password</label>
+        <input type="password" id="password" name="password" required placeholder="Enter your password" minlength="6" oninput="checkPasswordMatch()">
+    </div>
+
+    <div class="form-group">
+        <label for="confirm-password"><i class="fas fa-lock"></i> Confirm Password</label>
+        <input type="password" id="confirm-password" name="confirm-password" required placeholder="Confirm your password" minlength="6" oninput="checkPasswordMatch()">
+    </div>
+
+    <div id="password-feedback"></div>
+
+    <div class="form-group">
+        <label for="phone"><i class="fas fa-phone"></i> Phone Number</label>
+        <input type="text" id="phone" name="phone" required placeholder="Enter your phone number">
+    </div>
+
+    <div class="form-group">
+        <label for="address"><i class="fas fa-map-marker-alt"></i> Address</label>
+        <input type="text" id="address" name="address" required placeholder="Enter your address">
+    </div>
+
+    <div class="form-group">
+        <input type="checkbox" id="show-password" onclick="togglePasswordVisibility()">
+        <label for="show-password">Show Password</label>
+    </div>
+
+    <div class="form-group">
+        <button type="submit"><i class="fas fa-user-plus"></i> Sign Up</button>
+    </div>
+</form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Flower Shop. All rights reserved.</p>
+    </footer>
+</body>
+</html>

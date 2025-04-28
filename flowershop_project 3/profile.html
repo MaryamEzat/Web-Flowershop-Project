@@ -1,0 +1,221 @@
+<?php
+session_start();
+
+// Check if the user is logged in
+$is_logged_in = isset($_SESSION['user_id']);
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile</title>
+    <link rel="stylesheet" href="assets/styles/home.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #f9f9f9;
+        }
+        header, footer {
+            text-align: center;
+            padding: 10px 0;
+            background-color: #f8b1c4;
+            color: white;
+        }
+        main {
+            flex: 1;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        h2 {
+            text-align: center;
+            color: #f0748b;
+        }
+        label {
+            display: block;
+            margin: 15px 0 5px;
+            font-weight: bold;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        button {
+            background: #f0748b;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+            width: 100%;
+            font-size: 16px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        button:hover {
+            background: #e55466;
+            transform: scale(1.05);
+        }
+        .message {
+            text-align: center;
+            margin: 10px 0;
+        }
+        .success {
+            color: green;
+        }
+        .error {
+            color: red;
+        }
+        .view-password {
+            margin-left: 10px;
+            cursor: pointer;
+            font-size: 14px;
+            color: #007bff;
+        }
+        .view-password:hover {
+            text-decoration: underline;
+        }
+        #password-section {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="home.php"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="about-us.php"><i class="fas fa-info-circle"></i> About Us</a></li>
+                <li><a href="contact-us.php"><i class="fas fa-envelope"></i> Contact Us</a></li>
+                <?php if ($is_logged_in): ?>
+                    <li><a href="cart.php"><i class="fas fa-shopping-cart"></i> Cart</a></li>
+                    <li><a href="logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                <?php endif; ?>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div class="container">
+            <h2>Edit Profile</h2>
+            <!-- Feedback Messages -->
+            <div id="messages"></div>
+
+            <form method="POST" id="profile-form">
+                <label for="full_name">Full Name</label>
+                <input type="text" id="full_name" name="full_name" required>
+
+                <label for="email">Email</label>
+                <input type="email" id="email" disabled>
+
+                <label for="phone_number">Phone Number</label>
+                <input type="text" id="phone_number" name="phone_number">
+
+                <button type="submit">Save Changes</button>
+
+                <!-- Change Password Button -->
+                <button id="change-password" type="button">Change Password</button>
+
+                <div id="password-section">
+                    <label for="current_password">Current Password</label>
+                    <div style="display: flex; align-items: center;">
+                        <input type="password" id="current_password" name="current_password">
+                        <span class="view-password" onclick="togglePassword('current_password')">View</span>
+                    </div>
+
+                    <label for="new_password">New Password</label>
+                    <div style="display: flex; align-items: center;">
+                        <input type="password" id="new_password" name="new_password">
+                        <span class="view-password" onclick="togglePassword('new_password')">View</span>
+                    </div>
+
+                    <label for="confirm_password">Confirm New Password</label>
+                    <div style="display: flex; align-items: center;">
+                        <input type="password" id="confirm_password" name="confirm_password">
+                        <span class="view-password" onclick="togglePassword('confirm_password')">View</span>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 Flower Shop. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const form = document.getElementById("profile-form");
+            const messages = document.getElementById("messages");
+            const changePasswordButton = document.getElementById("change-password");
+            const passwordSection = document.getElementById("password-section");
+
+            // Toggle password section
+            changePasswordButton.addEventListener("click", () => {
+                passwordSection.style.display =
+                    passwordSection.style.display === "none" ? "block" : "none";
+            });
+
+            // Fetch and populate user data
+            fetch("profile.php")
+                .then(response => response.json())
+                .then(data => {
+                    if (data.full_name) {
+                        document.getElementById("full_name").value = data.full_name;
+                        document.getElementById("email").value = data.email;
+                        document.getElementById("phone_number").value = data.phone_number;
+                    } else {
+                        messages.innerHTML = `<div class="message error">An error occurred while loading profile data.</div>`;
+                    }
+                })
+                .catch(error => {
+                    console.error("Error fetching profile data:", error);
+                    messages.innerHTML = `<div class="message error">An error occurred while loading the profile data.</div>`;
+                });
+
+            // Handle form submission
+            form.addEventListener("submit", (event) => {
+                event.preventDefault();
+                const formData = new FormData(form);
+
+                fetch("profile.php", {
+                    method: "POST",
+                    body: formData,
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            messages.innerHTML = `<div class="message success">${data.message}</div>`;
+                        } else {
+                            messages.innerHTML = `<div class="message error">${data.message}</div>`;
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error updating profile:", error);
+                        messages.innerHTML = `<div class="message error">An error occurred while updating the profile.</div>`;
+                    });
+            });
+        });
+
+        // Function to toggle password visibility
+        function togglePassword(fieldId) {
+            const field = document.getElementById(fieldId);
+            field.type = field.type === "password" ? "text" : "password";
+        }
+    </script>
+</body>
+</html>

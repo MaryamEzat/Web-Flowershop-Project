@@ -1,0 +1,135 @@
+<?php
+session_start();
+$is_logged_in = isset($_SESSION['user_id']);
+$user_name = $is_logged_in ? $_SESSION['user_name'] : null; // Retrieve the user's name if logged in
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Flower Shop</title>
+    <link rel="stylesheet" href="assets/styles/home.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #f9f9f9;
+        }
+        header, footer {
+            text-align: center;
+            padding: 10px 0;
+            background-color: #f8b1c4;
+            color: white;
+        }
+        main {
+            flex: 1;
+        }
+        .checkout-container {
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #f0748b;
+            text-align: center;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+        input, select, textarea {
+            display: block;
+            width: 100%;
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .btn {
+            background-color: #f0748b;
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .btn:hover {
+            background-color: #e55466;
+        }
+        footer {
+            background-color: #f8b1c4;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="<?php echo $is_logged_in ? 'home.php' : 'index.html'; ?>"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="about-us.php"><i class="fas fa-info-circle"></i> About Us</a></li>
+                <li><a href="contact-us.php"><i class="fas fa-envelope"></i> Contact Us</a></li>
+                <?php if ($is_logged_in): ?>
+                    <li><a href="profile.php"><i class="fas fa-user-edit"></i> Edit Profile</a></li>
+                    <li><a href="cart.php"><i class="fas fa-shopping-cart"></i> Cart</a></li>
+                    <li><a href="logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                <?php else: ?>
+                    <li><a href="sign-in.html"><i class="fas fa-sign-in-alt"></i> Sign In</a></li>
+                    <li><a href="sign-up.html"><i class="fas fa-user-plus"></i> Sign Up</a></li>
+                <?php endif; ?>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="checkout-container">
+            <h2>Checkout</h2>
+            <form action="process_order.php" method="POST">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" required value="<?php echo $user_name ?: ''; ?>">
+
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone">
+
+                <label for="address">Address</label>
+                <input type="text" id="address" name="address" required>
+
+                <label for="country">Country</label>
+                <select id="country" name="country" required>
+                    <option value="">Select a country</option>
+                    <option value="United States">United States</option>
+                    <option value="Canada">Canada</option>
+                    <!-- Add other countries as needed -->
+                </select>
+
+                <label for="notes">Additional Notes</label>
+                <textarea id="notes" name="notes" rows="4"></textarea>
+
+                <button type="submit" class="btn">Complete Purchase</button>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Flower Shop. All rights reserved.</p>
+    </footer>
+</body>
+</html>

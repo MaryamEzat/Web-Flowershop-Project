@@ -1,0 +1,303 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Font Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    background-color: #f9f9f9;
+}
+
+/* Navigation Styles */
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    padding: 0;
+    margin: 20px 0;
+    gap: 20px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.4rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 18px;
+    background-color: #f0748b; /* Pink Accent */
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+nav ul li a:hover {
+    background-color: #e55466;
+    transform: scale(1.1);
+}
+
+nav ul li a i {
+    font-size: 1.6rem;
+}
+
+/* Hero Section */
+.hero {
+    background: linear-gradient(to bottom, #f0748b, #f8b1c4);
+    color: white;
+    padding: 100px 20px;
+    text-align: center;
+}
+
+.hero-content h1 {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.hero-content p {
+    font-size: 1.6rem;
+    font-style: italic;
+}
+
+/* Form Styling (For Sign In, Sign Up, Contact Us) */
+.page-content {
+    padding: 50px 20px;
+    text-align: center;
+}
+
+.page-content h2 {
+    font-size: 3.5rem;
+    color: #f0748b; /* Pink Heading */
+    margin-bottom: 30px;
+    font-weight: bold;
+}
+
+.page-content p {
+    font-size: 1.5rem;
+    color: #333;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+.page-content form {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.page-content .form-group {
+    margin-bottom: 20px;
+}
+
+.page-content label {
+    font-size: 1.2rem;
+    color: #333;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.page-content input, .page-content textarea {
+    width: 100%;
+    padding: 12px;
+    margin-top: 8px;
+    font-size: 1rem;
+    border-radius: 8px;
+    border: 2px solid #f0748b;
+    outline: none;
+}
+
+.page-content input:focus, .page-content textarea:focus {
+    border-color: #e55466;
+}
+
+.page-content button {
+    background-color: #f0748b;
+    color: white;
+    font-size: 1.2rem;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    width: 100%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.page-content button:hover {
+    background-color: #e55466;
+    transform: scale(1.05);
+}
+
+/* Contact Us Info */
+.contact-info {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.contact-info p {
+    font-size: 1.2rem;
+    color: #333;
+    margin: 10px 0;
+}
+
+.contact-info i {
+    font-size: 1.5rem;
+    margin-right: 10px;
+}
+
+/* Footer Styling */
+footer {
+    background-color: #f5a7b8;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    font-size: 1rem;
+}
+
+/* Link Styling */
+a {
+    color: #f0748b;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Category Icons (for Rose, Tulip, Sunflower) */
+.category-links a {
+    text-decoration: none;
+    font-size: 1.8rem;
+    color: #f0748b;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    border: 2px solid #f0748b;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.category-links a:hover {
+    background-color: #f0748b;
+    color: white;
+    transform: translateY(-5px); /* Adds a hover lift effect */
+}
+
+.category-links a::before {
+    font-size: 3rem;  /* Larger icon size */
+    margin-bottom: 10px;
+}
+
+.categories h2 {
+    color: #f0748b; /* Pink text color */
+    border-bottom: 3px solid #f0748b; /* Pink line */
+    padding-bottom: 10px; /* Space between text and border */
+    text-align: center; /* Center-align the text */
+    margin-bottom: 20px; /* Space below the heading */
+    font-weight: bold;
+}
+
+/* About Us Page Styling */
+.page-content h2 {
+    font-size: 3.5rem;
+    color: #f0748b;
+    margin-bottom: 30px;
+    font-weight: bold;
+}
+
+.page-content p {
+    font-size: 1.5rem;
+    color: #333;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+.about-section {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 40px;
+    text-align: center;
+}
+
+.about-item {
+    width: 30%;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.about-item i {
+    font-size: 3rem;
+    color: #f0748b;
+    margin-bottom: 20px;
+}
+
+.about-item h3 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.about-item ul {
+    list-style: none;
+    padding: 0;
+}
+
+.about-item ul li {
+    font-size: 1.2rem;
+    color: #666;
+}
+
+/* Additional Styles for Team Section */
+.team-section {
+    margin-top: 50px;
+    padding: 30px;
+    background-color: #f8f8f8;
+}
+
+.team-section h3 {
+    font-size: 2.5rem;
+    color: #f0748b;
+    margin-bottom: 30px;
+}
+
+.team-members {
+    display: flex;
+    justify-content: space-around;
+}
+
+.team-member {
+    width: 25%;
+    text-align: center;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.team-member i {
+    font-size: 4rem;
+    color: #f0748b;
+    margin-bottom: 20px;
+}
+
+.team-member h4 {
+    font-size: 1.5rem;
+    color: #333;
+}
+
+.team-member p {
+    font-size: 1.1rem;
+    color: #666;
+}

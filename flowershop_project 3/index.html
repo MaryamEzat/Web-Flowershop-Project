@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Flower Shop</title>
+    <link rel="stylesheet" href="assets/styles/home.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* Styling for the success message */
+        #success-message {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #f0748b; /* Pink background for success message */
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            display: none; /* Initially hidden */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            font-size: 16px;
+            z-index: 1000;
+            animation: fadeIn 0.5s ease-in-out; /* Fade-in animation */
+        }
+
+        /* Page Layout */
+        header, footer {
+            text-align: center;
+            padding: 10px 0;
+            background-color: #f8b1c4;
+            color: white;
+        }
+
+        main {
+            flex: 1; /* Pushes the footer to the bottom */
+            text-align: center;
+            padding: 20px;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Ensure body takes full viewport height */
+            background-color: #f9f9f9;
+        }
+
+        /* Categories */
+        .category-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .category-link {
+            background-color: #f0748b;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .category-link:hover {
+            background-color: #e55466;
+        }
+
+        /* Animations */
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Navigation -->
+    <header>
+        <nav>
+            <ul class="nav-menu">
+                <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="about-us.php"><i class="fas fa-info-circle"></i> About Us</a></li>
+                <li><a href="contact-us.php"><i class="fas fa-envelope"></i> Contact Us</a></li>
+                <li class="sign-in"><a href="sign-in.html"><i class="fas fa-sign-in-alt"></i> Sign In</a></li>
+                <li class="sign-up"><a href="sign-up.html"><i class="fas fa-user-plus"></i> Sign Up</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Success Message Container -->
+    <div id="success-message"></div>
+
+    <!-- Main Content -->
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Welcome to Our Flower Shop</h1>
+                <p>Discover the beauty of flowers and bring nature to your home!</p>
+            </div>
+        </section>
+
+        <section class="categories">
+            <h2>Explore Our Bouquets</h2>
+            <div class="category-links">
+                <a href="rose-bouquets.php" class="category-link">🌹 Rose Bouquets</a>
+                <a href="tulip-bouquets.php" class="category-link">🌷 Tulip Bouquets</a>
+                <a href="sunflower-bouquets.php" class="category-link">🌻 Sunflower Bouquets</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Flower Shop. All rights reserved.</p>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Fetch the nav menu items
+            const signInButton = document.querySelector('.sign-in');
+            const signUpButton = document.querySelector('.sign-up');
+            const navMenu = document.querySelector('.nav-menu');
+
+            // Check if the user is logged in
+            const isLoggedIn = localStorage.getItem('loggedIn') === 'true';
+            const username = localStorage.getItem('username') || 'User';
+
+            if (isLoggedIn) {
+                // Remove "Sign In" and "Sign Up" and add "Edit Profile" + "Logout"
+                signInButton.style.display = 'none';
+                signUpButton.style.display = 'none';
+
+                const welcomeMessage = `<li style="color: #f0748b; font-weight: bold;">Welcome, ${username}!</li>`;
+                const editProfile = `<li><a href="edit-profile.html"><i class="fas fa-user-edit"></i> Profile</a></li>`;
+                const logout = `<li><a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a></li>`;
+
+                navMenu.insertAdjacentHTML('beforeend', welcomeMessage + editProfile + logout);
+            }
+
+            // Logout function
+            window.logout = function() {
+                localStorage.removeItem('loggedIn');
+                localStorage.removeItem('username');
+                alert('You have been logged out!');
+                window.location.reload();
+            };
+
+            // Success message logic
+            const urlParams = new URLSearchParams(window.location.search);
+            const message = urlParams.get('message');
+            if (message) {
+                const successMessage = document.getElementById('success-message');
+                const firstName = message.split(' ')[1] || message; // Assuming "Welcome Fullname"
+                successMessage.textContent = `Welcome, ${firstName}!`;
+                successMessage.style.display = 'block';
+
+                // Fade out after 10 seconds
+                setTimeout(() => {
+                    successMessage.style.animation = 'fadeOut 1s ease-in-out forwards';
+                    setTimeout(() => successMessage.style.display = 'none', 1000);
+                }, 10000);
+            }
+        });
+    </script>
+</body>
+</html>
